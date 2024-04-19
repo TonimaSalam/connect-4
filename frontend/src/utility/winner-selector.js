@@ -1,67 +1,11 @@
-export const isWinner = (grid, move, player) => {
-  const gameGrid = [...grid];
-  gameGrid[move] = player ? 1 : 2;
+import { winningPositions, player } from "./game-objects";
 
-  const winningPositions = [
-    [0, 1, 2, 3],
-    [1, 2, 3, 4],
-    [2, 3, 4, 5],
-    [6, 7, 8, 9],
-    [7, 8, 9, 10],
-    [8, 9, 10, 11],
-    [12, 13, 14, 15],
-    [13, 14, 15, 16],
-    [14, 15, 16, 17],
-    [18, 19, 20, 21],
-    [19, 20, 21, 22],
-    [20, 21, 22, 23],
-    [24, 25, 26, 27],
-    [25, 26, 27, 28],
-    [26, 27, 28, 29],
-    [30, 31, 32, 33],
-    [31, 32, 33, 34],
-    [32, 33, 34, 35],
-    [0, 6, 12, 18],
-    [6, 12, 18, 24],
-    [12, 18, 24, 30],
-    [1, 7, 13, 19],
-    [7, 13, 19, 25],
-    [13, 19, 25, 31],
-    [2, 8, 14, 20],
-    [8, 14, 20, 26],
-    [14, 20, 26, 32],
-    [3, 9, 15, 21],
-    [9, 15, 21, 27],
-    [15, 21, 27, 33],
-    [4, 10, 16, 22],
-    [10, 16, 22, 28],
-    [16, 22, 28, 34],
-    [5, 11, 17, 23],
-    [11, 17, 23, 29],
-    [17, 23, 29, 35],
-    [12, 19, 26, 33],
-    [6, 13, 20, 27],
-    [13, 20, 27, 34],
-    [0, 7, 14, 21],
-    [7, 14, 21, 28],
-    [14, 21, 28, 35],
-    [1, 8, 15, 22],
-    [8, 15, 22, 29],
-    [2, 9, 16, 23],
-    [3, 8, 13, 18],
-    [4, 9, 14, 19],
-    [9, 14, 19, 24],
-    [5, 10, 15, 20],
-    [10, 15, 20, 25],
-    [15, 20, 25, 30],
-    [11, 16, 21, 26],
-    [16, 21, 26, 31],
-    [17, 22, 27, 32],
-  ];
+export const isWinner = (grid, move, cuurentPlayer) => {
+  const gameGrid = [...grid];
+  gameGrid[move] = cuurentPlayer;
 
   for (let i = 0; i < winningPositions.length; i++) {
     const [p1, p2, p3, p4] = winningPositions[i];
-    //console.log(gameGrid[p1],gameGrid[p2],gameGrid[p3],gameGrid[p4]);
     if (
       gameGrid[p1] != 0 &&
       gameGrid[p1] === gameGrid[p2] &&
@@ -73,5 +17,22 @@ export const isWinner = (grid, move, player) => {
     }
   }
 
-  return 0;
+  return player.blank;
 };
+
+export const isDraw = (grid, move, cuurentPlayer) => {
+  const gameGrid = [...grid];
+  gameGrid[move] = cuurentPlayer;
+
+  const emptyCircles = gameGrid.reduce((count, circle) => count + (circle === 0), 0);
+  return emptyCircles? false : true;
+};
+
+export const randomMove = (grid) =>{
+  const emptyCircles = grid.reduce((circles, val, idx) => {
+    if (val === player.blank) circles.push(idx);
+    return circles;
+  }, []);
+  console.log(emptyCircles[Math.floor(Math.random() * emptyCircles.length)])
+  return emptyCircles[Math.floor(Math.random() * emptyCircles.length)];
+}

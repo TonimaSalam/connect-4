@@ -1,8 +1,9 @@
 import React from "react";
-import "./components.css";
-const GameCircle = ({ id, circleClassName, onClickCircle }) => {
+import { player } from "../utility/game-objects";
+
+const GameCircle = ({ id, circleClassName, onClickCircle,currentPlayer }) => {
   const clickedCircle = (event, id) => {
-    onClickCircle(id);
+    if(currentPlayer === player.one)onClickCircle(id);
   };
   return (
     <div

@@ -1,11 +1,15 @@
-import GameBoard from "./components/GameBoard"
-function App() {
+import GameBoard from "./components/GameBoard";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./components/components.css";
 
+function App() {
   return (
-    <>
-    <GameBoard></GameBoard>
-    </>
-  )
+    <div>
+      <GameBoard></GameBoard>
+      <ToastContainer />
+    </div>
+  );
 }
 
-export default App
+export default App;
