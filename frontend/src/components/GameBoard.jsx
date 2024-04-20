@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import GameCircle from "./GameCircle";
 import GameBoardHeader from "./GameBoardHeader";
 import GameBoardFooter from "./GameBoardFooter";
-import { isWinner, isDraw ,randomMove} from "../utility/winner-selector";
+import { isWinner, isDraw, computerMove } from "../utility/winner-selector";
 import { player, gameState, gridSize } from "../utility/game-objects";
 import PlayerTurn from "./PlayerTurn";
 import { toast } from "react-toastify";
@@ -31,24 +31,22 @@ const GameBoard = () => {
   };
 
   const onClickCircle = (id) => {
-    if (
-      currentGameState === gameState.playing &&
-      isWinner(gameGrid, id, currentPlayer) != player.blank
-    ) {
+    if (currentGameState === gameState.playing) {
       if (isWinner(gameGrid, id, currentPlayer) === player.one) {
         setScore(score + 1);
         setcurrentGameState(gameState.win);
-      } else setcurrentGameState(gameState.loss);
+        toast.info(`Click next button`, { theme: "dark" });
+      } else if (isWinner(gameGrid, id, currentPlayer) === player.two) {
+        setcurrentGameState(gameState.loss);
+        toast.info(`Click next button`, { theme: "dark" });
+      } else if (isDraw(gameGrid, id, currentPlayer)) {
+        setcurrentGameState(gameState.draw);
+        toast.info(`Click next button`, { theme: "dark" });
+      }
     }
 
-    if (
-      currentGameState === gameState.playing &&
-      isDraw(gameGrid, id, currentPlayer)
-    )
-      setcurrentGameState(gameState.draw);
-
     if (gameGrid[id] && currentGameState === gameState.playing) {
-      toast.warn("Select an empty circle",{theme: "dark"});
+      toast.warn("Select an empty circle", { theme: "dark" });
       return;
     }
 
@@ -60,7 +58,7 @@ const GameBoard = () => {
         });
       });
       setCurrentPlayer(currentPlayer === player.one ? player.two : player.one);
-    }else toast.info(`Click next button`,{theme: "dark"});
+    }
   };
 
   const renderCircle = (id) => {
@@ -77,11 +75,13 @@ const GameBoard = () => {
 
   useEffect(() => {
     if (currentPlayer === player.two) {
-      const move = randomMove(gameGrid); 
-      if (currentGameState === gameState.playing)setTimeout(()=>onClickCircle(move),1000);
+      const move = computerMove(gameGrid);
+      console.log(move);
+      if (currentGameState === gameState.playing)
+        setTimeout(() => onClickCircle(move), 1000);
     }
   }, [currentPlayer]);
-  
+
   return (
     <div className="game_board">
       <GameBoardHeader

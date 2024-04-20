@@ -1,3 +1,8 @@
+.game_board{
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+}
 .game_grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -34,7 +39,6 @@
 .game_board_header {
   background-color: yellowgreen;
   border: 6px solid turquoise;
-  margin-top: 5%;
   width: 15%;
   margin-left: 42%;
   margin-right: 43%;
@@ -53,10 +57,9 @@
   background-color: yellowgreen;
   border: 6px solid turquoise;
   margin-top: 2%;
-  width: 13%;
-  margin-left: 43%;
-  margin-right: 44%;
-  margin-bottom: 2%;
+  width: 15%;
+  margin-left: 42%;
+  margin-right: 43%;
   cursor: pointer;
 }
 
