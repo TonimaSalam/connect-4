@@ -13,4 +13,4 @@ Javascript, CSS, React.js
 ## Setup
 1. **Clone Repository:** Clone this repository to your local machine.
 2. **Install Dependencies:** Navigate to the project frontend directory and install dependencies using `npm i`.
-3. **Start the Server:** Run the server using `npm start`.
+3. **Start the Server:** Run the server using `npm run dev`.
